@@ -7,9 +7,9 @@ import { useState } from "react";
 function App() {
   let post = "성수 맛집"; //자료를 잠깐 저장할 땐 변수
   let [postName, setPostName] = useState([
-    "성수 커피 맛집",
+    "가로수 커피 맛집",
     "서울숲 포토존 명당",
-    "서울숲 맛집",
+    "논현 맛집",
   ]); //state로도 자료를 잠깐 저장할 수 있다.
   let [like, setLike] = useState(0);
   /**왜 state를 써야하는가?
@@ -31,13 +31,22 @@ function App() {
         <h4 id={post}>REACT BLOG</h4>
       </div>
       <div className="list">
+        <button
+          onClick={() => {
+            let postNameCopy = [...postName];
+            postNameCopy.sort();
+            setPostName(postNameCopy);
+          }}
+        >
+          💡가나다순 정렬
+        </button>
         <h4>
           {postName[0]}
           <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}> ❤</span>
           {like}
         </h4>
         <p>2월 17일 발행</p>
-        <span
+        <button
           onClick={() => {
             let postNameCopy = [...postName];
             postNameCopy[0] = "성수 파스타 맛집";
@@ -45,7 +54,7 @@ function App() {
           }}
         >
           📝제목 수정
-        </span>
+        </button>
       </div>
       <div className="list">
         <h4>{postName[1]}</h4>
