@@ -33,10 +33,19 @@ function App() {
       <div className="list">
         <h4>
           {postName[0]}
-          <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}>❤</span>
+          <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}> ❤</span>
           {like}
         </h4>
         <p>2월 17일 발행</p>
+        <span
+          onClick={() => {
+            let postNameCopy = [...postName];
+            postNameCopy[0] = "성수 파스타 맛집";
+            setPostName(postNameCopy);
+          }}
+        >
+          📝제목 수정
+        </span>
       </div>
       <div className="list">
         <h4>{postName[1]}</h4>
