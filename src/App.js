@@ -12,6 +12,7 @@ function App() {
     "논현 맛집",
   ]); //state로도 자료를 잠깐 저장할 수 있다.
   let [like, setLike] = useState(0);
+  let [openModal, setOpenModal] = useState(false);
   /**왜 state를 써야하는가?
    * 변수는 변경되면 HTML도 변경되어야 하는데 자동으로 반영되지 않음
    * state는 state를 쓰던 HTML이 변경되면 리렌더링됨
@@ -24,8 +25,6 @@ function App() {
    * let a = num[0]; -> a = 1
    * let c = num[1]; -> c = 2
    */
-
-  let [openModal, setOpenModal] = useState(false);
 
   return (
     <div className="App">
@@ -48,7 +47,7 @@ function App() {
           <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}> ❤</span>
           {like}
         </h4>
-        <p>2월 17일 발행</p>
+        <p>8월 07일 발행</p>
         <button
           onClick={() => {
             let postNameCopy = [...postName];
@@ -59,18 +58,46 @@ function App() {
           📝제목 수정
         </button>
       </div>
-
       <div className="list">
         <h4 onClick={() => setOpenModal(!openModal)}>{postName[1]}</h4>
-        <p>2월 17일 발행</p>
+        <p>8월 07일 발행</p>
       </div>
-
       <div className="list">
         <h4 onClick={() => setOpenModal(openModal ? false : true)}>
           {postName[2]}
         </h4>
-        <p>2월 17일 발행</p>
+        <p>8월 07일 발행</p>
       </div>
+
+      {
+        /**map()
+         * 1. array 자료 갯수 만큼 함수 안의 코드를 실행해줌
+         * 2. 함수의 파라미터는 array 안에 있던 자료임
+         * 3. return값은 array에 담기는 data
+         *
+         * 1. array 자료만큼 내부코드 실행
+         * 2. return문의 내용을 array로 담아줌
+         * 3. 유용한 파라미터 2개(array 안에 있던 data, 반복문 돌때마다 0부터 1씩 증가하는 정수) 사용가능
+         */
+        // [1, 2, 3].map(function () {
+        //   return <div>map</div>
+        // });
+        // => [<div>map</div>,<div>map</div>,<div>map</div>]
+        postName.map(function (a, i) {
+          return (
+            <div className="list" key={i}>
+              <h4 onClick={() => setOpenModal(!openModal)}>
+                {a}, i:{i}
+                <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}>
+                  ❤
+                </span>
+                {like}
+              </h4>
+              <p>8월 07일 발행</p>
+            </div>
+          );
+        })
+      }
 
       {/**삼항연산자(ternary operator)
        * {조건식 ? 참일때 실행할 코드 : 거짓일때 실행할 코드}
