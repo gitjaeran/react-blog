@@ -32,8 +32,8 @@ function App() {
       </div>
       <div className="list">
         <h4>
-          {postName[0]}{" "}
-          <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}>❤</span>{" "}
+          {postName[0]}
+          <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}>❤</span>
           {like}
         </h4>
         <p>2월 17일 발행</p>
