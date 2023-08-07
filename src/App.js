@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <div className="black-nav">
-        <h4>BLOG</h4>
+        <h4 id={post}>BLOG</h4>
       </div>
       <h4>{post}</h4>
     </div>
