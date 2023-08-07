@@ -25,6 +25,8 @@ function App() {
    * let c = num[1]; -> c = 2
    */
 
+  let [openModal, setOpenModal] = useState(false);
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -41,7 +43,7 @@ function App() {
           💡가나다순 정렬
         </button>
 
-        <h4>
+        <h4 onClick={() => setOpenModal(!openModal)}>
           {postName[0]}
           <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}> ❤</span>
           {like}
@@ -59,17 +61,22 @@ function App() {
       </div>
 
       <div className="list">
-        <h4>{postName[1]}</h4>
+        <h4 onClick={() => setOpenModal(!openModal)}>{postName[1]}</h4>
         <p>2월 17일 발행</p>
       </div>
 
       <div className="list">
-        <h4>{postName[2]}</h4>
+        <h4 onClick={() => setOpenModal(openModal ? false : true)}>
+          {postName[2]}
+        </h4>
         <p>2월 17일 발행</p>
       </div>
 
-      <Modal />
-      <ReportComponent />
+      {/**삼항연산자(ternary operator)
+       * {조건식 ? 참일때 실행할 코드 : 거짓일때 실행할 코드}
+       */}
+      {openModal ? <Modal /> : null}
+      {/* <ReportComponent /> */}
     </div>
   );
 }
@@ -85,6 +92,11 @@ function App() {
  * (A 함수에 있던 변수는 B 함수에서 사용 불가)
  */
 function Modal() {
+  /**동적인 UI 만드는 Step
+   * 1. HTML, CSS로 미리 디자인 완성
+   * 2. UI의 현재 상태를 State로 저장
+   * 3. State에 따라 UI가 어떻게 보일지 작성
+   */
   return (
     <div className="modal">
       <h4>제목</h4>
@@ -94,12 +106,12 @@ function Modal() {
   );
 }
 
-const ReportComponent = () => {
-  return (
-    <>
-      <div className="modal">연습용 화살표 함수 컴포넌트</div>
-    </>
-  );
-};
+// const ReportComponent = () => {
+//   return (
+//     <>
+//       <div className="modal">연습용 화살표 함수 컴포넌트</div>
+//     </>
+//   );
+// };
 
 export default App;
