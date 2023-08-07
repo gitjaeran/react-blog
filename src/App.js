@@ -84,11 +84,11 @@ function App() {
         //   return <div>map</div>
         // });
         // => [<div>map</div>,<div>map</div>,<div>map</div>]
-        postName.map(function (a, i) {
+        postName.map(function (data, i) {
           return (
             <div className="list" key={i}>
               <h4 onClick={() => setOpenModal(!openModal)}>
-                {a}, i:{i}
+                {data}, i:{i}
                 <span
                   onClick={() => {
                     let likeCopy = [...like];
@@ -109,7 +109,13 @@ function App() {
       {/**삼항연산자(ternary operator)
        * {조건식 ? 참일때 실행할 코드 : 거짓일때 실행할 코드}
        */}
-      {openModal ? <Modal /> : null}
+      {openModal ? (
+        <Modal
+          color={"skyblue"}
+          postName={postName}
+          setPostName={setPostName}
+        />
+      ) : null}
       {/* <ReportComponent /> */}
     </div>
   );
@@ -125,17 +131,28 @@ function App() {
  * state를 가져다 쓸때 불편함(props).
  * (A 함수에 있던 변수는 B 함수에서 사용 불가)
  */
-function Modal() {
+function Modal(props) {
   /**동적인 UI 만드는 Step
    * 1. HTML, CSS로 미리 디자인 완성
    * 2. UI의 현재 상태를 State로 저장
    * 3. State에 따라 UI가 어떻게 보일지 작성
    */
+
+  /**props도 파라미터 문법임 */
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{ backgroundColor: props.color }}>
+      <h4>{props.postName[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button
+        onClick={() => {
+          let postNameCopy = [...props.postName];
+          postNameCopy[0] = "성수 파스타 맛집";
+          props.setPostName(postNameCopy);
+        }}
+      >
+        수정
+      </button>
     </div>
   );
 }
