@@ -40,6 +40,7 @@ function App() {
         >
           💡가나다순 정렬
         </button>
+
         <h4>
           {postName[0]}
           <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}> ❤</span>
@@ -56,16 +57,49 @@ function App() {
           📝제목 수정
         </button>
       </div>
+
       <div className="list">
         <h4>{postName[1]}</h4>
         <p>2월 17일 발행</p>
       </div>
+
       <div className="list">
         <h4>{postName[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
+
+      <Modal />
+      <ReportComponent />
     </div>
   );
 }
+
+/**Component화 기준
+ * 1. 반복적인 HTML 축약
+ * 2. 큰/다른 페이지
+ * 3. 자주 변경되는 UI
+ * 4. 팀원과 협업시 페이지를 나누어 작업 분배
+ *
+ * Component 단점
+ * state를 가져다 쓸때 불편함(props).
+ * (A 함수에 있던 변수는 B 함수에서 사용 불가)
+ */
+function Modal() {
+  return (
+    <div className="modal">
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  );
+}
+
+const ReportComponent = () => {
+  return (
+    <>
+      <div className="modal">연습용 화살표 함수 컴포넌트</div>
+    </>
+  );
+};
 
 export default App;
