@@ -11,7 +11,7 @@ function App() {
     "서울숲 포토존 명당",
     "논현 맛집",
   ]); //state로도 자료를 잠깐 저장할 수 있다.
-  let [like, setLike] = useState(0);
+  let [like, setLike] = useState([0, 0, 0]);
   let [openModal, setOpenModal] = useState(false);
   /**왜 state를 써야하는가?
    * 변수는 변경되면 HTML도 변경되어야 하는데 자동으로 반영되지 않음
@@ -31,7 +31,8 @@ function App() {
       <div className="black-nav">
         <h4 id={post}>REACT BLOG</h4>
       </div>
-      <div className="list">
+
+      {/* <div className="list">
         <button
           onClick={() => {
             let postNameCopy = [...postName];
@@ -67,7 +68,7 @@ function App() {
           {postName[2]}
         </h4>
         <p>8월 07일 발행</p>
-      </div>
+      </div> */}
 
       {
         /**map()
@@ -88,10 +89,16 @@ function App() {
             <div className="list" key={i}>
               <h4 onClick={() => setOpenModal(!openModal)}>
                 {a}, i:{i}
-                <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}>
+                <span
+                  onClick={() => {
+                    let likeCopy = [...like];
+                    likeCopy[i] = likeCopy[i] === 1 ? 0 : 1;
+                    setLike(likeCopy);
+                  }}
+                >
                   ❤
                 </span>
-                {like}
+                {like[i]}
               </h4>
               <p>8월 07일 발행</p>
             </div>
