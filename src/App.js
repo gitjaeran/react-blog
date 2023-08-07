@@ -13,6 +13,8 @@ function App() {
   ]); //state로도 자료를 잠깐 저장할 수 있다.
   let [like, setLike] = useState([0, 0, 0]);
   let [openModal, setOpenModal] = useState(false);
+  let [title, setTitle] = useState(0);
+  let [inputValue, setInputValue] = useState("");
   /**왜 state를 써야하는가?
    * 변수는 변경되면 HTML도 변경되어야 하는데 자동으로 반영되지 않음
    * state는 state를 쓰던 HTML이 변경되면 리렌더링됨
@@ -87,13 +89,18 @@ function App() {
         postName.map(function (data, i) {
           return (
             <div className="list" key={i}>
-              <h4 onClick={() => setOpenModal(!openModal)}>
+              <h4
+                onClick={() => {
+                  setOpenModal(!openModal);
+                  setTitle(i);
+                }}
+              >
                 {data}, i:{i}
                 <span
-                  onClick={() => {
+                  onClick={e => {
                     let likeCopy = [...like];
                     likeCopy[i] = likeCopy[i] === 1 ? 0 : 1;
-                    setLike(likeCopy);
+                    e.stopPropagation(); //상위 HTML로 퍼지는 이벤트 버블링 막기
                   }}
                 >
                   ❤
@@ -101,10 +108,41 @@ function App() {
                 {like[i]}
               </h4>
               <p>8월 07일 발행</p>
+              <button
+                onClick={() => {
+                  let postNameCopy = [...postName];
+                  postNameCopy.splice(i, 1);
+                  setPostName(postNameCopy);
+                }}
+              >
+                삭제
+              </button>
             </div>
           );
         })
       }
+
+      {/**e = 이벤트 객체
+       *e.target 현재 이벤트가 발생한 곳을 알려주고
+        e.preventDefault() 이벤트 기본 동작을 막기
+        e.stopPropagation() 이벤트 버블링 막기,좋아요버튼 누를 때 모달창도 떠버리는 버그 해결가능
+       */}
+      <div>
+        <input
+          onChange={e => {
+            setInputValue(e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            let postNameCopy = [...postName];
+            postNameCopy.unshift(inputValue);
+            setPostName(postNameCopy);
+          }}
+        >
+          발행하기
+        </button>
+      </div>
 
       {/**삼항연산자(ternary operator)
        * {조건식 ? 참일때 실행할 코드 : 거짓일때 실행할 코드}
@@ -114,6 +152,7 @@ function App() {
           color={"skyblue"}
           postName={postName}
           setPostName={setPostName}
+          title={title}
         />
       ) : null}
       {/* <ReportComponent /> */}
@@ -141,18 +180,10 @@ function Modal(props) {
   /**props도 파라미터 문법임 */
   return (
     <div className="modal" style={{ backgroundColor: props.color }}>
-      <h4>{props.postName[0]}</h4>
+      <h4>{props.postName[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
-      <button
-        onClick={() => {
-          let postNameCopy = [...props.postName];
-          postNameCopy[0] = "성수 파스타 맛집";
-          props.setPostName(postNameCopy);
-        }}
-      >
-        수정
-      </button>
+      <button>수정</button>
     </div>
   );
 }
