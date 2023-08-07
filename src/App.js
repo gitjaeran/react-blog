@@ -25,10 +25,6 @@ function App() {
    * let c = num[1]; -> c = 2
    */
 
-  // function clickLikeNumberHandler() {
-  //   setLike(like + 1);
-  // }
-
   return (
     <div className="App">
       <div className="black-nav">
@@ -36,7 +32,9 @@ function App() {
       </div>
       <div className="list">
         <h4>
-          {postName[0]} <span onClick={() => setLike(like + 1)}>❤</span> {like}
+          {postName[0]}{" "}
+          <span onClick={() => (like === 0 ? setLike(1) : setLike(0))}>❤</span>{" "}
+          {like}
         </h4>
         <p>2월 17일 발행</p>
       </div>
