@@ -1,3 +1,5 @@
+/**eslint-disable : Lint 끄기 */
+
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
@@ -9,6 +11,7 @@ function App() {
     "서울숲 포토존 명당",
     "서울숲 맛집",
   ]); //state로도 자료를 잠깐 저장할 수 있다.
+  let [like, setLike] = useState(0);
   /**왜 state를 써야하는가?
    * 변수는 변경되면 HTML도 변경되어야 하는데 자동으로 반영되지 않음
    * state는 state를 쓰던 HTML이 변경되면 리렌더링됨
@@ -22,13 +25,19 @@ function App() {
    * let c = num[1]; -> c = 2
    */
 
+  // function clickLikeNumberHandler() {
+  //   setLike(like + 1);
+  // }
+
   return (
     <div className="App">
       <div className="black-nav">
         <h4 id={post}>REACT BLOG</h4>
       </div>
       <div className="list">
-        <h4>{postName[0]}</h4>
+        <h4>
+          {postName[0]} <span onClick={() => setLike(like + 1)}>❤</span> {like}
+        </h4>
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
